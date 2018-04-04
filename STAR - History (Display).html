@@ -1,0 +1,369 @@
+<!--pointed at input table-->
+<html version="6" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<!--startOf: css-->
+	<link rel="stylesheet" type="text/css" href="https://olympus.soc.texas.gov/files/CDN/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" boardresource="tdem-template-ver-1.0.css" />
+	<style type="text/css">
+		a:link,
+		a:visited,
+		a:hover,
+		a:active {
+			text-decoration: none;
+		}
+
+		div.div-table {
+			display: table;
+			width: 100%;
+		}
+
+		div.div-table-row {
+			display: table-row;
+		}
+
+		div.div-table-cell {
+			display: table-cell;
+		}
+
+		div.div-table div.div-table-row:first-child div.div-table-cell:first-child {
+			width: 15%;
+		}
+
+		div.highlight {
+			background-color: yellow;
+			color: red;
+		}
+	</style>
+	<!--startOf: js-->
+	<script type="text/javascript" boardresource="webeoc-library-ver-2.0.js"></script>
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="https://olympus.soc.texas.gov/files/js/footerrefreshicon.js?v=8"></script>
+	<script type="text/javascript">
+		function getHistoryData() {
+			try {
+				var historyLog = document.getElementById('history-log'),
+					value = historyLog.dataset.historyjson,
+					result = [];
+
+				result = JSON.parse(value);
+			} catch (exception) {
+				console.log('An error occurred while getting history data.\n' + exception.name + ': ' + exception.message);
+				result = [];
+			} finally {
+				return result;
+			}
+		}
+
+		function draftSignatureHeader(data, container) {
+			try {
+				var header = document.createElement('h4'),
+					text = 'Updated by %u on %d';
+
+				header.className = 'panel-title';
+
+				text = text.replace('%u', data.updatedBy).replace('%d', data.timeStamp);
+
+				header.innerHTML = text;
+
+				container.appendChild(header);
+			} catch (exception) {
+				console.log('An error occurred while drafting signature header.\n' + exception.name + ': ' + exception.message);
+			}
+		}
+
+		function isFieldsDiffer(currentLogField, prevLogField) {
+			var result = false;
+			if (currentLogField.label === prevLogField.label &amp;&amp; currentLogField.value !== prevLogField.value) {
+				result = true;
+			}
+			return result;
+		}
+
+		function draftField(currentLogField, table, prevLogField) {
+			try {
+				var row = document.createElement('div'),
+					cell = {
+						label: document.createElement('div'),
+						value: document.createElement('div')
+					},
+					span = {
+						label: document.createElement('span'),
+						value: document.createElement('span')
+					};
+
+				row.className = 'div-table-row';
+
+				if (typeof prevLogField !== 'undefined') {
+					if (isFieldsDiffer(currentLogField, prevLogField)) {
+						row.className += ' highlight';
+					}
+				}
+
+				cell.label.className = 'div-table-cell';
+				cell.value.className = 'div-table-cell';
+
+				span.value.className = 'bold space-left';
+
+				span.label.innerHTML = currentLogField.label;
+				span.value.innerHTML = currentLogField.value;
+
+				cell.label.appendChild(span.label);
+				cell.value.appendChild(span.value);
+
+				row.append(cell.label);
+				row.append(cell.value);
+				table.appendChild(row);
+			} catch (exception) {
+				console.log('An error occurred while drafting field.\n' + exception.name + ': ' + exception.message);
+			}
+		}
+
+		function parseJSONLog(raw) {
+			try {
+				var result = [];
+
+				result = JSON.parse('[' + raw + ']');
+			} catch (exception) {
+				console.log('An error occurred while parsing JSON log.\n' + exception.name + ': ' + exception.message);
+				result = [];
+			} finally {
+				return result;
+			}
+		}
+
+		function draftLogFields(currentLog, table, prevLog) {
+			try {
+				if (typeof currentLog !== 'undefined') {
+					var raw = {
+						current: currentLog.replace(/(\[|\])/g, '')
+					},
+						fields = {
+							current: null
+						};
+
+					fields.current = parseJSONLog(raw.current);
+
+					if (typeof prevLog !== 'undefined') {
+						raw.prev = prevLog.replace(/(\[|\])/g, '');
+						fields.prev = parseJSONLog(raw.prev);
+					}
+
+					for (var i = 0, len = fields.current.length; len > i; i++) {
+						if (typeof prevLog !== 'undefined') {
+							draftField(fields.current[i], table, fields.prev[i]);
+						} else {
+							draftField(fields.current[i], table);
+						}
+					}
+				}
+			} catch (exception) {
+				console.log('An error occurred while drafting log fields.\n' + exception.name + ': ' + exception.message);
+			}
+		}
+
+		function draftLog(currentData, container, prevData) {
+			try {
+				var div = document.createElement('div'),
+					table = document.createElement('div');
+
+				div.className = 'zero-padding-top-bottom log';
+				table.className = 'div-table';
+
+				div.appendChild(table);
+
+				container.appendChild(div);
+
+				if (typeof prevData !== 'undefined') {
+					draftLogFields(currentData.log, table, prevData.log);
+				} else {
+					draftLogFields(currentData.log, table);
+				}
+			} catch (exception) {
+				console.log('An error occurred while drafting log.\n' + exception.name + ': ' + exception.message);
+			}
+		}
+
+		function buildHistoryEntry(currentData, prevData) {
+			try {
+				var historyLogContainer = document.getElementById('history-log'),
+					row = document.createElement('div'),
+					col = document.createElement('div'),
+					panel = {
+						container: document.createElement('div'),
+						heading: document.createElement('div'),
+						body: document.createElement('div')
+					};
+
+				row.className = 'row';
+				col.className = 'col-md-12';
+				panel.container.className = 'panel panel-primary';
+				panel.heading.className = 'panel-heading';
+				panel.body.className = 'panel-body';
+
+				panel.container.appendChild(panel.heading);
+				panel.container.appendChild(panel.body);
+				col.appendChild(panel.container);
+				row.appendChild(col);
+				historyLogContainer.appendChild(row);
+
+				draftSignatureHeader(currentData, panel.heading);
+
+				if (typeof prevData !== 'undefined') {
+					draftLog(currentData, panel.body, prevData);
+				} else {
+					draftLog(currentData, panel.body);
+				}
+			} catch (exception) {
+				console.log('An error occurred while building history entry.\n' + exception.name + ': ' + exception.message);
+			}
+		}
+
+		function buildHistoryEntries(jsonData) {
+			try {
+				for (var i = 0, len = jsonData.length; len > i; i++) {
+					if (i === 0 &amp;&amp; len > 1) {
+						buildHistoryEntry(jsonData[i], jsonData[i + 1]);
+					} else {
+						buildHistoryEntry(jsonData[i]);
+					}
+				}
+			} catch (exception) {
+				console.log('An error occurred while building history entries.\n' + exception.name + ': ' + exception.message);
+			}
+		}
+
+		function buildHistoryLog() {
+			try {
+				var historyLog = document.getElementById('history-log'),
+					jsonData = null;
+
+				if (historyLog) {
+					jsonData = getHistoryData();
+					buildHistoryEntries(jsonData);
+				}
+			} catch (exception) {
+				console.log('An error occurred while building history log.\n' + exception.name + ': ' + exception.message);
+			}
+		}
+		
+		//#region initialize
+		function _init() {
+
+			try {
+				var view = new DetailsViewModel(),
+					pdf = new PDFModel();
+
+				buildHistoryLog();
+				if (pdf.isRenderingPDF()) {
+					pdf.modifyViewForPDF();
+				} else {
+					view.hideSplashLoader();
+				}
+			} catch (exception) {
+				console.log('An error occurred while initializing the view.\n' + exception.name + ': ' + exception.message);
+			}
+		}
+
+		if (window.addEventListener) {
+			window.addEventListener('load', _init, false);
+		} else if (window.attachEvent) {
+			window.attachEvent('onload', _init);
+		}
+//#endregion
+	</script>
+</head>
+<body>
+	<eocrepeatallrecords>
+		<xsl:variable name="historyForSTAR" select="concat('History For STAR: ',@requestNumber)" />
+		<xsl:variable name="requestorSignature" select="concat(@requestorSignatureTag, ' on ',@requestorSignatureDT)" />
+		<xsl:variable name="isLogTracked" select="@history_json!=''" />
+		<xsl:variable name="requestNumberPartial" select="substring-after(@requestNumber, '-')" />
+		<div id="splash-loader" class="printhide">
+			<p class="splash-loader-content">
+				<i class="fa fa-spinner fa-spin fa-2x fa-fw icon-blue icon-loader" />
+				<span>Loading...</span>
+				<span class="sr-only">Loading...</span>
+			</p>
+		</div>
+		<div class="container-fluid">
+			<div class="header clearfix">
+				<nav>
+					<ul class="nav nav-pills pull-right printhide">
+						<li role="presentation">
+							<returnbutton class="btn btn-primary">Return</returnbutton>
+						</li>
+						<!--li role="presentation">
+							<viewlink name="STAR - history (DO NOT ASSIGN)" class="btn btn-primary" type="button">
+								View Old History
+							</viewlink>
+						</li-->
+						<li role="presentation">
+							<pdflink type="button" class="btn btn-primary" enablejs="true" enablewebkit="true">Create PDF</pdflink>
+						</li>
+					</ul>
+					<div class="zero-padding-top-bottom">
+						<h5 class="text-muted">
+							<value-of select="$historyForSTAR" />
+						</h5>
+					</div>
+					<div class="zero-padding-top-bottom">
+						<h5 class="text-muted">
+							<value-of select="$requestorSignature" />
+						</h5>
+					</div>
+				</nav>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<h4 class="panel-title">Current STAR Status</h4>
+						</div>
+						<div class="panel-body">
+							<div class="zero-padding-top-bottom">
+								Request Level: <strong><eocfield name="requestLevel" /></strong>
+							</div>
+							<div class="zero-padding-top-bottom">
+								Request Status: <strong><eocfield name="starStatusSelect" /></strong>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<h4 class="underline">
+						History Logs
+					</h4>
+				</div>
+			</div>
+			<choose>
+				<when test="$isLogTracked">
+					<div id="history-log" class="history-log" data-historyjson="{@history_json}">
+					</div>
+				</when>
+				<otherwise>
+					<div id="no-history-log">
+						<h4>No logs recorded! Please View Old History</h4>
+					</div>
+				</otherwise>
+			</choose>
+		</div>
+
+		<!--startOf: hidden fields-->
+		<fieldset id="hiddenFields" class="hide">
+			<legend>Hidden Content</legend>
+			<incidentname />
+			<div class="eocfields">
+				<eocfield disableclick="true" name="requestNumber" />
+				<eocfield disableclick="true" name="requestorSignatureTag" />
+				<eocfield disableclick="true" name="requestorSignatureDT" />
+				<eocfield disableclick="true" name="history_json" />
+			</div>
+		</fieldset>
+	</eocrepeatallrecords>
+</body>
+</html>
