@@ -277,10 +277,10 @@
 </head>
 <body>
 	<eocrepeatallrecords>
-		<xsl:variable name="historyForSTAR" select="concat('History For STAR: ',@requestNumber)" />
-		<xsl:variable name="requestorSignature" select="concat(@requestorSignatureTag, ' on ',@requestorSignatureDT)" />
-		<xsl:variable name="isLogTracked" select="@history_json!=''" />
-		<xsl:variable name="requestNumberPartial" select="substring-after(@requestNumber, '-')" />
+		<xsl:variable name="historyForTitle" select="concat('History For YourBoardName: ',@requestNumber)" /><!--this one should be customized-->
+		<xsl:variable name="requestorSignature" select="concat(@requestorSignatureTag, ' on ',@requestorSignatureDT)" /><!--this one should be customized-->
+		<xsl:variable name="isLogTracked" select="@history_json!=''" /><!--this one needs to stay as is-->
+		<xsl:variable name="requestNumberPartial" select="substring-after(@requestNumber, '-')" /><!--this one should be customized-->
 		<div id="splash-loader" class="printhide">
 			<p class="splash-loader-content">
 				<i class="fa fa-spinner fa-spin fa-2x fa-fw icon-blue icon-loader" />
@@ -306,12 +306,12 @@
 					</ul>
 					<div class="zero-padding-top-bottom">
 						<h5 class="text-muted">
-							<value-of select="$historyForSTAR" />
+							<value-of select="$historyForTitle" />
 						</h5>
 					</div>
 					<div class="zero-padding-top-bottom">
 						<h5 class="text-muted">
-							<value-of select="$requestorSignature" />
+							<!--value-of select="$requestorSignature" /-->
 						</h5>
 					</div>
 				</nav>
@@ -320,14 +320,14 @@
 				<div class="col-md-12">
 					<div class="panel panel-info">
 						<div class="panel-heading">
-							<h4 class="panel-title">Current STAR Status</h4>
+							<h4 class="panel-title">Current XXXXXXXXXXXXXXX Status</h4>
 						</div>
 						<div class="panel-body">
 							<div class="zero-padding-top-bottom">
-								Request Level: <strong><eocfield name="requestLevel" /></strong>
+								Request Level: <strong><eocfield name="requestLevel" /></strong><!--this one should be customized-->
 							</div>
 							<div class="zero-padding-top-bottom">
-								Request Status: <strong><eocfield name="starStatusSelect" /></strong>
+								Request Status: <strong><eocfield name="starStatusSelect" /></strong><!--this one should be customized-->
 							</div>
 						</div>
 					</div>
@@ -340,9 +340,10 @@
 					</h4>
 				</div>
 			</div>
+			<!--this one needs to stay as is-->
 			<choose>
 				<when test="$isLogTracked">
-					<div id="history-log" class="history-log" data-historyjson="{@history_json}">
+					<div id="history-log" class="history-log" data-historyjson="{@history_json}"><!--this one needs to stay as is-->
 					</div>
 				</when>
 				<otherwise>
@@ -351,6 +352,7 @@
 					</div>
 				</otherwise>
 			</choose>
+			<!--this one needs to stay as is-->
 		</div>
 
 		<!--startOf: hidden fields-->
@@ -358,10 +360,10 @@
 			<legend>Hidden Content</legend>
 			<incidentname />
 			<div class="eocfields">
-				<eocfield disableclick="true" name="requestNumber" />
-				<eocfield disableclick="true" name="requestorSignatureTag" />
-				<eocfield disableclick="true" name="requestorSignatureDT" />
-				<eocfield disableclick="true" name="history_json" />
+				<eocfield disableclick="true" name="requestNumber" /><!--this one should be customized-->
+				<eocfield disableclick="true" name="requestorSignatureTag" /><!--this one should be customized-->
+				<eocfield disableclick="true" name="requestorSignatureDT" /><!--this one should be customized-->
+				<eocfield disableclick="true" name="history_json" /><!--this one needs to stay as is-->
 			</div>
 		</fieldset>
 	</eocrepeatallrecords>
