@@ -1,0 +1,244 @@
+<html lang="en">
+
+<head>
+    <title>TDEM CIS</title>
+    <link rel="apple-touch-icon" href="cis.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <meta name="robots" content="noindex">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
+        crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h2>TDEM CIS</h2>
+        <!-- <p>Made with
+            <i class="far fa-heart"></i>... or something,<br/> by Chris</p> -->
+        <ul class="nav nav-tabs">
+            <li>
+                <a data-toggle="tab" href="#dps">DPS</a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="#tdem">TDEM</a>
+            </li>
+            <li class="active">
+                <a data-toggle="tab" href="#cis">CIS</a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="#webeoc">WebEOC</a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="#wx">Wx</a>
+            </li>
+            <li>
+                <a data-toggle="tab" id="gpsRun" href="#gpsTab">GPS</a>
+            </li>
+            <li>
+                <a data-toggle="tab" href="#apps">Apps</a>
+            </li>
+        </ul>
+        <div class="tab-content well">
+            <div id="dps" class="tab-pane list-group fade">
+                <div class="txdps">
+                    <a href="https://portal.tle.dps/SitePages/Home.aspx" class="list-group-item" target="_blank">
+                        <i class="fas fa-cloud"></i> SharePoint</a>
+                    <a href="https://dpsnet" class="list-group-item" target="_blank">
+                        <i class="fas fa-book"></i> DPSNET</a>
+                    <a href="https://entprtlprd.cpa.texas.gov/psp/pspihprd1/?cmd=login" class="list-group-item" target="_blank">
+                        <i class="fas fa-dollar-sign"></i> CAPPS</a>
+                    <a href="https://dpsnet/intranetforms/default/default.aspx" class="list-group-item" target="_blank">
+                        <i class="far fa-file-alt"></i> Forms</a>
+                    <a href="https://hdqprdtelcmp001.tle.dps/ucmuser/" class="list-group-item" target="_blank">
+                        <i class="fas fa-phone"></i> Cisco Call Manager</a>                        
+                    <a href="http://www.dps.texas.gov/services/TXMAP.htm" class="list-group-item" target="_blank">
+                        <i class="far fa-map"></i> TXMAP</a>
+                </div>
+            </div>
+            <div id="tdem" class="tab-pane list-group fade">
+                <div class="tdem">
+                    <a href="http://www.dps.texas.gov/dem/" class="list-group-item" target="_blank">
+                        <i class="fas fa-home"></i> TDEM</a>
+                    <a href="https://outlook.office365.com/owa/" class="list-group-item" target="_blank">
+                        <i class="far fa-envelope"></i> Outlook</a>
+                    <a href="https://tdemstorage.dps.texas.gov:5001/" class="list-group-item" target="_blank">
+                        <i class="fas fa-database"></i> TDEM NAS</a>
+                    <a href="https://txdps.maps.arcgis.com/home/index.html" class="list-group-item" target="_blank">
+                        <i class="fas fa-globe"></i> ArcGIS</a>
+                    <a href="http://www.dps.texas.gov/dem/sitrep/default.aspx" class="list-group-item" target="_blank">
+                        <i class="fas fa-poo"></i> TDEM SitReps</a>
+                    <a href="https://vpn01.dps.texas.gov/" class="list-group-item" target="_blank">
+                        <i class="fas fa-lock"></i> VPN Certificate</a>
+                </div>
+            </div>
+            <div id="cis" class="tab-pane active list-group fade in">
+                <div class="cis">
+                    <a href="http://www.dps.texas.gov/dem/cis/index.htm" class="list-group-item" target="_blank">
+                        <i class="fab fa-pied-piper"></i> CIS</a>
+                    <a href="https://tdemcis.slack.com/unreads/" class="list-group-item" target="_blank">
+                        <i class="fab fa-slack"></i> Slack</a>
+                    <a href="https://app.asana.com/" class="list-group-item" target="_blank">
+                        <i class="fas fa-tasks"></i> Asana</a>
+                    <a href="https://github.com/TDEM-CIS" class="list-group-item" target="_blank">
+                        <i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://jsfiddle.net" class="list-group-item" target="_blank">
+                        <i class="fab fa-jsfiddle"></i> JSFiddle</a>
+                    <a href="https://drive.google.com/" class="list-group-item" target="_blank">
+                        <i class="fab fa-google-drive"></i> Google Drive</a>
+                    <a href="https://cis.dps.texas.gov/osticket/" class="list-group-item" target="_blank">
+                        <i class="fas fa-bug"></i> osTicket User</a>
+                    <a href="https://cis.dps.texas.gov/osticket/scp/" class="list-group-item" target="_blank">
+                        <i class="fas fa-bug"></i> osTicket Agent</a>
+                    <a href="https://txdps.webex.com/mw3200/mywebex/default.do?siteurl=txdps" class="list-group-item" target="_blank">
+                        <i class="fas fa-video"></i> WebEx</a>
+                    <a href="https://zoom.us" class="list-group-item" target="_blank">
+                        <i class="fas fa-video"></i> Zoom </a>
+                    <a href="http://genesis.soc.texas.gov:8090/#all-updates" class="list-group-item" target="_blank">
+                        <i class="far fa-question-circle"></i> Confluence</a>
+                    <a href="https://www.blackboardconnect.com" class="list-group-item" target="_blank">
+                        <i class="fas fa-bullhorn"></i> Blackboard Connect</a>
+                </div>
+            </div>
+            <div id="webeoc" class="tab-pane list-group fade">
+                <div class="webeoc">
+                    <a href="https://webeoc.dps.texas.gov/" class="list-group-item" target="_blank">
+                        <i class="fas fa-server"></i> State</a>
+                    <a href="https://lonestar.soc.texas.gov/" class="list-group-item" target="_blank">
+                        <i class="fas fa-server"></i> LoneStar</a>
+                    <a href="https://olympus.soc.texas.gov/" class="list-group-item" target="_blank">
+                        <i class="fas fa-server"></i> Olympus</a>
+                    <a href="https://genesis.soc.texas.gov/" class="list-group-item" target="_blank">
+                        <i class="fas fa-server"></i> Genesis</a>
+                    <a href="https://fusion.soc.texas.gov/ESiWebFUSION/" class="list-group-item" target="_blank">
+                        <i class="fas fa-exchange-alt"></i> Fusion</a>
+                    <a href="https://www.dps.texas.gov/dem/cis/eocAccount/default.aspx" class="list-group-item" target="_blank">
+                        <i class="far fa-user"></i> Account Request</a>
+                    <a href="https://olympus.soc.texas.gov/Services/WebEOCUserReset/Default.aspx" class="list-group-item" target="_blank">
+                        <i class="fas fa-undo"></i> User Reset</a>
+                    <a href="https://olympus.soc.texas.gov/incidentrequest/" class="list-group-item" target="_blank">
+                        <i class="fas fa-ambulance"></i> Incident Request</a>
+                    <a href="https://olympus.soc.texas.gov/Services/DSO/" class="list-group-item" target="_blank">
+                        <i class="far fa-file-alt"></i> DSO Entry</a>
+                    <a href="https://itunes.apple.com/cz/app/texas-etn/id1126123424?ign-mpt=uo%3D5" class="list-group-item">
+                        <i class="fab fa-app-store-ios"></i> TXETN - iOS</a>
+                    <a href="https://play.google.com/store/apps/details?id=com.tdem.TXETN&hl=en" class="list-group-item">
+                        <i class="fab fa-google-play"></i> TXETN - Play Store</a>
+                    <a href="https://vimeo.com/162836913" class="list-group-item" target="_blank">
+                        <i class="fab fa-vimeo-v"></i> ETN Training Video</a>
+                    <a href="https://esi.zendesk.com/" class="list-group-item" target="_blank">
+                        <i class="fab fa-readme"></i> ESi Zendesk </a>
+                    <a href="https://learning.intermedix.com" class="list-group-item" target="_blank">
+                        <i class="fas fa-graduation-cap"></i> Intermedix Learning </a>
+                </div>
+            </div>
+            <div id="apps" class="tab-pane list-group fade">
+                <div class="apps">
+                    <a href="https://itunes.apple.com/us/app/slack/id618783545?mt=8" class="list-group-item">Slack </a>
+                    <a href=" https://itunes.apple.com/us/app/at-t-enhanced-push-to-talk/id621010564?mt=8" class="list-group-item">ATT PTT</a>
+                    <a href="https://itunes.apple.com/us/app/cisco-webex-meetings/id298844386?mt=8" class="list-group-item">Cisco Webex </a>
+                    <a href="https://itunes.apple.com/us/app/cisco-jabber/id467192391?mt=8" class="list-group-item">Cisco Jabber</a>
+                    <a href="https://itunes.apple.com/us/app/zoom-cloud-meetings/id546505307?mt=8" class="list-group-item">Zoom</a>
+                    <a href="https://itunes.apple.com/us/app/cisco-legacy-anyconnect/id392790924?mt=8" class="list-group-item">Cisco AnyConnect</a>
+                    <a href="https://itunes.apple.com/us/app/microsoft-remote-desktop/id714464092?mt=8" class="list-group-item">Microsoft RDP</a>
+                    <a href="https://itunes.apple.com/us/app/google-drive/id507874739?mt=8" class="list-group-item">Google Drive</a>
+                    <a href="https://itunes.apple.com/us/app/ds-file/id416751772?mt=8" class="list-group-item">DS File</a>
+                    <a href="https://itunes.apple.com/us/app/explorer-for-arcgis/id860708788?mt=8" class="list-group-item">Explorer for AcrGIS</a>
+                    <a href="https://itunes.apple.com/us/app/collector-for-arcgis/id589674237?mt=8" class="list-group-item">Collector for ArcGIS</a>
+                    <a href="https://itunes.apple.com/us/app/survey123-for-arcgis/id993015031?mt=8" class="list-group-item">Survery123 for ArcGIS</a>
+                    <a href="https://itunes.apple.com/us/app/workforce-for-arcgis/id1046591822?mt=8" class="list-group-item">WorkForce for ArcGIS</a>
+                    <a href="https://itunes.apple.com/us/app/geosuite-v2-0/id997475539?mt=8" class="list-group-item">GeoSuite</a>
+                </div>
+            </div>
+            <div id="wx" class="tab-pane fade">
+                <div class="wx">
+                <a href="#" class="list-group-item" data-toggle="modal" data-target="#wxModal">Dark Sky Austin</a>
+                <a href="https://darksky.net/" class="list-group-item">Dark Sky</a>
+                <a href="https://wunderground.com/" class="list-group-item">Weather Underground</a>
+                <a class="list-group-item" href="http://forecast.weather.gov/product.php?site=EWX&issuedby=EWX&product=AFD&format=CI&version=1&glossary=1" target="_blank">NWS Discussion</a>
+                <a class="list-group-item" href="https://forecast.weather.gov/MapClick.php?lat=30.4908&lon=-97.6877" target="_blank">NWS Ausin Forecast</a>
+                <a class="list-group-item" href="https://www.weather.gov/AMA/" target="_blank">NWS AMA (Amarillo)</a>
+                <a class="list-group-item" href="https://www.weather.gov/BRO/" target="_blank">NWS BRO (Brownsville)</a>
+                <a class="list-group-item" href="https://www.weather.gov/CRP/" target="_blank">NWS CRP (Corpus Christi)</a>
+                <a class="list-group-item" href="https://www.weather.gov/EPZ/" target="_blank">NWS EPZ (El Paso)</a>
+                <a class="list-group-item" href="https://www.weather.gov/ewx/" target="_blank">NWS EWX (Austin/San Antonio)</a>
+                <a class="list-group-item" href="https://www.weather.gov/fwd/" target="_blank">NWS FWD (Fort Worth)</a>
+                <a class="list-group-item" href="https://www.weather.gov/hgx/" target="_blank">NWS HGX (Houston)</a>
+                <a class="list-group-item" href="https://www.weather.gov/LCH/" target="_blank">NWS LCH (Lake Charles)</a>
+                <a class="list-group-item" href="https://www.weather.gov/LUB/" target="_blank">NWS LUB (Lubbock)</a>
+                <a class="list-group-item" href="https://www.weather.gov/MAF/" target="_blank">NWS MAF (Midland/Odessa)</a>
+                <a class="list-group-item" href="https://www.weather.gov/OUN/" target="_blank">NWS OUN (Norman)</a>
+                <a class="list-group-item" href="https://www.weather.gov/SHV/" target="_blank">NWS SHV (Sheveport)</a>
+                <a class="list-group-item" href="https://www.weather.gov/SJT/" target="_blank">NWS SJT (San Angelo)</a>
+                <a class="list-group-item" href="https://www.weather.gov/srh/" target="_blank">NWS SRH (Southern Region)</a>
+                <a class="list-group-item" href="https://www.weather.gov/wgrfc/" target="_blank">NWS WGRFC</a>
+                <a class="list-group-item" href="https://www.weather.gov/forecastmaps" target="_blank">NWS Forecast Maps</a>
+                <a class="list-group-item" href="https://www.spc.ncep.noaa.gov" target="_blank">NWS SPC</a>
+                <a class="list-group-item" href="https://water.weather.gov/ahps/region.php?state=tx" target="_blank">NWS AHPS</a>
+                <a class="list-group-item" href="https://www.weather.gov/fire/" target="_blank">NWS Fire Weather</a>
+                <a class="list-group-item" href="https://twc.tamu.edu/kbdi" target="_blank">TAMU KBDI</a>
+                <a class="list-group-item" href="https://twc.tamu.edu/tfd" target="_blank">TAMU TFD</a>
+                <a class="list-group-item" href="https://www.nhc.noaa.gov/" target="_blank">National Hurricane Center</a>
+                <a class="list-group-item" href="http://mp1.met.psu.edu/~fxg1/HRRRSC_CUR/comploop.html" target="_blank">HRRR</a>
+                <a class="list-group-item" href="https://weather.msfc.nasa.gov/GOES/" target="_blank">NASA GOES</a>
+                <a class="list-group-item" href="http://www.wrh.noaa.gov/zoa/mwmap3.php?map=usa" target="_blank">National METAR/TAF</a>
+                <a class="list-group-item" href="https://inws.ncep.noaa.gov/" target="_blank">iNWS</a>
+                <a class="list-group-item" href="https://nwschat.weather.gov/live/?nomap" target="_blank">NWSChat</a>
+                <a class="list-group-item" href="http://www.txtornado.net/weather.htm" target="_blank">TX Tornado</a>
+                </div>
+            </div>
+            <div id="gpsTab" class="tab-pane list-group fade">
+                <div class="gps">
+                    <a href="#" id="gps" class="list-group-item"></a>
+                </div>
+            </div>
+        </div>
+<!-- Modal -->
+<div id="wxModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Dark Sky</h4>
+      </div>
+      <div class="modal-body">
+          <a href="https://darksky.net/forecast/30.2672,-97.7431/us12/en">Details</a>
+        <script type='text/javascript' src='https://darksky.net/widget/default/30.267153,-97.743061/us12/en.js?width=100%&height=350&title=Austin, TX&textColor=0ce3ac&bgColor=transparent&transparency=true&skyColor=0ce3ac&fontFamily=Default&customFont=&units=us&htColor=ffffff&ltColor=C7C7C7&displaySum=yes&displayHeader=yes'></script>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+
+<script>
+    var x=document.getElementById("gps");
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            x.innerHTML="Geolocation is not supported by this browser.";
+        }
+    }
+    function showPosition(position) {
+        x.innerHTML="Latitude: "+position.coords.latitude+"<br>Longitude: "+position.coords.longitude+"<br>Accuracy: "+position.coords.accuracy+"<br>Altitude: "+position.coords.altitude+"<br>Alt Accuracy: "+position.coords.altitudeAccuracy;
+    }
+
+    function actions() {
+        $("#gpsRun").click(getLocation);
+    }
+    $(document).ready(function () {
+        actions();
+    });
+</script>
+</html>
