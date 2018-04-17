@@ -2,10 +2,11 @@
  <!--INPUT-->   
 <head>
     <link boardresource="tdem-template-ver-1.0.css" rel="stylesheet" /><!--need this board resource-->
-<xsl:variable name="isNewRecord" select="not(/data/node()[@dataid])" /><!--needs this line-->
-</head>
-<body>
 
+</head>
+<xsl:variable name="isNewRecord" select="not(/data/node()[@dataid])" /><!--needs this line right here -->
+<body>
+<form>
 <input type="text" name="fieldExample" id="fieldExample" class="form-control requestItem" data-historylog-field="true" data-label="Field Example Label"/><!--needs these two attributes: data-historylog-field="true" data-label="Field Example Label"-->
 
     <button type="button" id="defaultSaveButtonForRealsSave" class="btn btn-success pull-right btn-lg defaultSaveButtonForRealsSave savesHistory"><!--needs this class savesHistory-->
@@ -20,6 +21,7 @@
                     <span id="userinfo" data-username="{/data/@username}" data-positionname="{/data/@positionname}" data-realname="{/data/userdetail/@realname}" data-location="{/data/userdetail/@location}" data-phonenumber="{/data/userdetail/@phonenumber}" data-officephone="{/data/userdetail/@officephone}" data-mobilephone="{/data/userdetail/@mobilephone}" data-department="{/data/userdetail/@department}" data-organization="{/data/userdetail/@organization}" data-supervisor="{/data/userdetail/@supervisor}" data-primaryemail="{/data/userdetail/@primaryemail}"></span>
                     <span id="sessioninfo" data-name="{/data/SessionDetail/Sessions/@name}" data-location="{/data/SessionDetail/Sessions/@location}" data-phone="{/data/SessionDetail/Sessions/@phone}" data-email="{/data/SessionDetail/Sessions/@email}" data-comments="{/data/SessionDetail/Sessions/@comments}"></span>
                     <span id="recordinfo" data-dataid="{/data/@dataid}" data-isnewrecord="{$isNewRecord}"></span>
+                     <!--span id="recordinfo"THIS IS THE DIFFICULT SPAN _ MAY NEEED TO BE COMMENTED FIRST TO GET TO WORK></span-->
                     <span id="currentinfo" data-date="{/data/@currentdate}" data-time="{/data/@currenttime}" data-datetime="{concat(/data/@currentdate, ' ', /data/@currenttime)}"></span>
                 </div>
                 <div id="populate-xml-data">
@@ -29,10 +31,11 @@
                     <textarea name="history_json" id="history_json" rows="6" class="input-block" data-label="History JSON"></textarea>
                 </div>
             </fieldset><!--needs this fieldset-->
+        </form>
 </body>
 <script src="https://olympus.soc.texas.gov/files/CDN/common/common.js"></script><!--need this link-->
 <script boardresource="webeoc-library-ver-2.0.js" /><!--need this board resource-->
-<!--this below historyOfThings is in the common.js. Its here for reference-->
+<!--this below historyOfThings is in the common.js. Its here for reference you can just call it on .ready-->
 <script type="text/javascript">
     var historyOfThings = {
     //start of History
