@@ -9,9 +9,12 @@
 <form>
 <input type="text" name="fieldExample" id="fieldExample" class="form-control requestItem" data-historylog-field="true" data-label="Field Example Label"/><!--needs these two attributes: data-historylog-field="true" data-label="Field Example Label"-->
 
-    <button type="button" id="defaultSaveButtonForRealsSave" class="btn btn-success pull-right btn-lg defaultSaveButtonForRealsSave savesHistory"><!--needs this class savesHistory-->
-                            <i class="fa fa-check" aria-hidden="true"></i> Save
+    <button type="button" id="defaultSaveButton" class="btn btn-success pull-right btn-lg defaultSaveButton savesHistory"><!--needs this class savesHistory-->
+                            <i class="fa fa-check" aria-hidden="true"></i> Fake Save
                         </button>
+                        <savebutton type="button" id="yourRealSaveButton" class="btn btn-success webeocSaveButton"><!--needs this class webeocSaveButton-->
+                            <i class="fa fa-check" aria-hidden="true"></i> Real Save
+                        </savebutton>
 
 
 
@@ -21,7 +24,6 @@
                     <span id="userinfo" data-username="{/data/@username}" data-positionname="{/data/@positionname}" data-realname="{/data/userdetail/@realname}" data-location="{/data/userdetail/@location}" data-phonenumber="{/data/userdetail/@phonenumber}" data-officephone="{/data/userdetail/@officephone}" data-mobilephone="{/data/userdetail/@mobilephone}" data-department="{/data/userdetail/@department}" data-organization="{/data/userdetail/@organization}" data-supervisor="{/data/userdetail/@supervisor}" data-primaryemail="{/data/userdetail/@primaryemail}"></span>
                     <span id="sessioninfo" data-name="{/data/SessionDetail/Sessions/@name}" data-location="{/data/SessionDetail/Sessions/@location}" data-phone="{/data/SessionDetail/Sessions/@phone}" data-email="{/data/SessionDetail/Sessions/@email}" data-comments="{/data/SessionDetail/Sessions/@comments}"></span>
                     <span id="recordinfo" data-dataid="{/data/@dataid}" data-isnewrecord="{$isNewRecord}"></span>
-                     <!--span id="recordinfo"THIS IS THE DIFFICULT SPAN _ MAY NEEED TO BE COMMENTED FIRST TO GET TO WORK></span-->
                     <span id="currentinfo" data-date="{/data/@currentdate}" data-time="{/data/@currenttime}" data-datetime="{concat(/data/@currentdate, ' ', /data/@currenttime)}"></span>
                 </div>
                 <div id="populate-xml-data">
