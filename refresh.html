@@ -1,0 +1,17 @@
+<script type="text/javascript">
+    
+    //Refreshes every 5m
+    var interval = 5; // Interval in minutes.
+  
+    // Trigger a refresh after a period of time.
+    setInterval(function() {
+      parent.pageBoard.Refresh();
+    }, interval * 60000); // Interval is converted to milliseconds.
+
+
+    //Disables Refresh
+    parent.pageBoard.SetManualRefreshOnly(true); //better
+    parent.pageBoardFooter.DisableRefresh(parent.pageBoardFooter.chkDisableRefresh)
+
+</script>
+
